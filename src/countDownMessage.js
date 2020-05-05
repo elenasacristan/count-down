@@ -1,3 +1,4 @@
+
 function countDown(selectedDate) {
   let result = "";
   const today = new Date().getTime();
@@ -30,8 +31,6 @@ function countDown(selectedDate) {
   } else {
     result = "The event has already passed :(";
   }
-
-
   return result;
 }
 

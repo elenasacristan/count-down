@@ -7,7 +7,7 @@ function Event(props) {
   const [eventName, setEventName] = useState("");
   const [date, setDate] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
-  const [visible, setVisibility] = useState("true");
+  const [visibleForm, setVisibility] = useState("true");
 
   function handleChangeName(event) {
     setEventName(event.target.value);
@@ -24,14 +24,18 @@ function Event(props) {
     event.preventDefault();
   }
 
-
+  function startCountDown(){
+    setCountDown(countDown(selectedDate));
+  }
 
   return (
-
-    <div className="container" >
-      <form autoComplete="off" onSubmit={preventSubmit}>
+    <div className="container">
+      <form
+        className={visibleForm ? "show" : "hide"}
+        autoComplete="off"
+        onSubmit={preventSubmit}
+      >
         <input
-          className={visible ? "show" : "hide"}
           name="name"
           onChange={handleChangeName}
           type="text"
@@ -39,7 +43,6 @@ function Event(props) {
           value={eventName}
         />
         <input
-          className={visible ? "show" : "hide"}
           name="date"
           onChange={handleChangeDate}
           type="date"
@@ -47,16 +50,15 @@ function Event(props) {
           required
         />
         <button
-          className={visible ? "show" : "hide"}
           type="submit"
-          onClick={() => {
-            setCountDown(countDown(selectedDate));
-          }}
+          onClick={() => 
+            setInterval(startCountDown, 10)
+          }
         >
           Check the count down
         </button>
       </form>
-      <h3 className={visible ? "hide" : "show"}>{eventName}</h3>
+      <h3 className={visibleForm ? "hide" : "show"}>{eventName}</h3>
       <p>{daysLeft}</p>
     </div>
   );
